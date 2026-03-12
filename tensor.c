@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <omp.h>
 #include "tensor.h"
+
 
 
 void* worker_Pthreads1D(void* arg) {

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "tensor.h"
 
 int main(int argc, char **argv) {
@@ -28,6 +29,11 @@ int main(int argc, char **argv) {
         fclose(arquivo);
     }
 
+    struct timespec inicio, fim;
+    double tempo_gasto;
+
+    clock_gettime(CLOCK_MONOTONIC, &inicio);
+
     Node acumulador = matrizes[0];
 
     for (int i = 1; i < argc - 1; i++) {
@@ -39,6 +45,11 @@ int main(int argc, char **argv) {
         }
         acumulador = mult_resultado;
     }
+
+    clock_gettime(CLOCK_MONOTONIC, &fim);
+    tempo_gasto = (fim.tv_sec - inicio.tv_sec) + (fim.tv_nsec - inicio.tv_nsec) / 1000000000.0;
+
+    printf("Tempo de execucao (Pthreads 2D): %f segundos\n", tempo_gasto);
 
     FILE *arq_saida = fopen("tensor_maolf.out", "w");
     if(arq_saida == NULL){
