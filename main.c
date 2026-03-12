@@ -32,7 +32,7 @@ int main(int argc, char **argv) {
 
     for (int i = 1; i < argc - 1; i++) {
         Node matriz = matrizes[i];
-        Node mult_resultado = produtoTensorial_Pthreads1D(acumulador, matriz, 4);
+        Node mult_resultado = produtoTensorial_Pthreads2D(acumulador, matriz, 4);
 
         if (i > 1) {
              liberarMatriz(acumulador);
