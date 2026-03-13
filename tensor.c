@@ -164,6 +164,31 @@ Node produtoTensorial_Pthreads2D(Node A, Node B, int num_threads) {
     return matrizResult;
 }
 
+Node produtoTensorial_OpenMP(Node A, Node B){
+    Node matrizResult;
+    matrizResult.linhas = A.linhas * B.linhas;
+    matrizResult.colunas = A.colunas * B.colunas;
+
+    matrizResult.matriz = (int**)malloc(matrizResult.linhas * sizeof(int *));
+    for(int i = 0; i < matrizResult.linhas; i++){
+        matrizResult.matriz[i] = (int *)malloc(matrizResult.colunas * sizeof(int));
+    }
+
+    #pragma omp parallel for
+    for (int i = 0; i < matrizResult.linhas; i++) {
+        for (int j = 0; j < matrizResult.colunas; j++) {
+            int linhaA = i / B.linhas;
+            int colunaA = j / B.colunas;
+            int linhaB = i % B.linhas;
+            int colunaB = j % B.colunas;
+
+            matrizResult.matriz[i][j] = A.matriz[linhaA][colunaA] * B.matriz[linhaB][colunaB];
+        }
+    }
+
+    return matrizResult;
+}
+
 Node lerArquivo(FILE *arquivo) {
     Node matriz;
     char ch;

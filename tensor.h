@@ -31,6 +31,7 @@ Node lerArquivo(FILE *arquivo);
 Node produtoTensorial(Node A, Node B);
 Node produtoTensorial_Pthreads1D(Node A, Node B, int num_threads);
 Node produtoTensorial_Pthreads2D(Node A, Node B, int num_threads);
+Node produtoTensorial_OpenMP(Node A, Node B);
 void liberarMatriz(Node matriz);
 
 #endif
